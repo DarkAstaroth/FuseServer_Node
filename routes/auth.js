@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const { check } = require("express-validator");
-const { login } = require("../controllers/authController");
+const { login, loginWithToken } = require("../controllers/authController");
 
 const router = Router();
 
@@ -13,5 +13,6 @@ router.post(
   ],
   login
 );
+router.post("/access-token", loginWithToken);
 
 module.exports = router;

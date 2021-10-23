@@ -5,6 +5,14 @@ const { generateJWT } = require("../helpers/generate-jwt");
 
 const usersPost = async (req = request, res = response) => {
   const { displayName, email, password, role } = req.body;
+
+  const existeEmail = await User.findOne({ email });
+  if (existeEmail) {
+    return res.status(400).json({
+      msg: `El correo ${email} ya esta registrado`,
+    });
+  }
+
   const user = new User({ displayName, email, password, role });
 
   // Encriptar la contraseña
